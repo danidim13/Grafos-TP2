@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "../include/Graph.h"
 #include <limits>
 #include <cmath>
 #include <iostream>
@@ -6,112 +6,155 @@
 
 typedef std::numeric_limits<double> D;
 
-Graph::Graph()
+Graph::Graph(): M(100),
+    num_vertices(0),
+    num_aristas(0),
+    adjMatrix(NULL),
+    vertices(NULL)
 {
-
+    adjMatrix = new weight_t*[M];
+    for (int i = 0; i < M; i++) {
+        adjMatrix[i] = new weight_t[M];
+    }
+    vertices = new tag_t[M];
 }
 
-Graph::Graph(int nodes): adjMatrix( nodes, std::vector<double>(nodes, D::infinity()) )
+Graph::Graph(int nodos): M(nodos),
+    num_vertices(0),
+    num_aristas(0),
+    adjMatrix(NULL),
+    vertices(NULL)
 {
-	for (size_t i = 0; i < adjMatrix.size(); i ++) {
-		adjMatrix[i][i] = 0;
-	}
-
+    adjMatrix = new weight_t*[M];
+    for (int i = 0; i < M; i++) {
+        adjMatrix[i] = new weight_t[M];
+    }
+    vertices = new tag_t[M];
 }
 
 Graph::~Graph()
 {
-
+    for (int i = 0; i < M; i++) {
+        delete[] adjMatrix[i];
+    }
+    delete[] adjMatrix;
+    delete[] vertices;
 }
 
-int Graph::addVertex()
+Graph::vertex_t Graph::addVertex(string tag)
 {
-	int size = adjMatrix.size();
-	for (auto it = adjMatrix.begin(); it != adjMatrix.end(); it++) {
-		it->emplace_back(D::infinity());
-	}
-	adjMatrix.emplace_back(size + 1, D::infinity());
-	adjMatrix[size][size] = 0;
-	return size+1;
+    if (num_vertices == M) {
+        return -1;
+    }
+
+    // Insertar el nuevo tag al final
+    vertices[num_vertices] = tag;
+
+    // El nuevo vértice se inserta sin conexiones
+    // (peso de 0)
+    for (int it = 0; it < num_vertices; it++) {
+        adjMatrix[it][num_vertices] = 0;
+        adjMatrix[num_vertices][it] = 0;
+    }
+    adjMatrix[num_vertices][num_vertices] = 0;
+
+    // La posición del nuevo vértice es la última, y luego
+    // se aumenta el contador de vértices.
+    return num_vertices++;
 }
 
-bool Graph::addEdge(int source, int dest, double weight)
+bool Graph::removeVertex(vertex_t v)
 {
-	int size = adjMatrix.size();
-	if (source < size && dest < size) {
-		if (source == dest) {
-			std::cerr << "Da fuck!" << std::endl;
-			return false;
-		}
-		adjMatrix[source][dest] = weight;
-		return true;
-	}
-	return false;
+    return false;
 }
 
-bool Graph::addEdgeBidir(int source, int dest, double weight)
+bool Graph::addEdge(vertex_t source, vertex_t dest, weight_t weight)
 {
-	int size = adjMatrix.size();
-	if (source < size && dest < size) {
-		if (source == dest) {
-			std::cerr << "Da fuck!" << std::endl;
-			return false;
-		}
-		adjMatrix[source][dest] = weight;
-		adjMatrix[dest][source] = weight;
-		return true;
-	}
-	return false;
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
+        if (source == dest) {
+            std::cerr << "No se permiten lazos!" << std::endl;
+            return false;
+        }
+        if (!weight) {
+            std::cerr << "Peso invalido" << endl;
+            return false;
+        }
+        adjMatrix[source][dest] = weight;
+        num_aristas++;
+        return true;
+    }
+    return false;
 }
 
-std::vector<double> Graph::getNeighbors(int v) const
+bool Graph::addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight)
 {
-	return adjMatrix[v];
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
+        if (source == dest) {
+            std::cerr << "No se permiten lazos!" << std::endl;
+            return false;
+        }
+        if (!weight) {
+            std::cerr << "Peso invalido" << endl;
+            return false;
+        }
+        adjMatrix[source][dest] = weight;
+        adjMatrix[dest][source] = weight;
+        num_aristas+=2;
+        return true;
+    }
+    return false;
 }
 
-bool Graph::isEdge(int source, int dest) const
+Graph::weight_t* Graph::getNeighbors(vertex_t v) const
 {
-	if (source < (int)adjMatrix.size() && dest < (int)adjMatrix.size())
-		return std::isfinite(adjMatrix[source][dest]);
-	return false;
+    return adjMatrix[v];
 }
 
-double Graph::getEdge(int source, int dest) const
+bool Graph::isEdge(vertex_t source, vertex_t dest) const
 {
-	if (source < (int)adjMatrix.size() && dest < (int)adjMatrix.size())
-		return adjMatrix[source][dest];
-	return D::infinity();
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices)
+        return (bool)adjMatrix[source][dest];
+    return false;
+}
+
+Graph::weight_t Graph::getEdge(vertex_t source, vertex_t dest) const
+{
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices)
+        return adjMatrix[source][dest];
+    return 0;
 }
 
 int Graph::order() const
 {
-	return adjMatrix.size();
+    return num_vertices;
 }
 
 int Graph::size() const
 {
-	int arcs = 0;
-	for (size_t i = 0; i < adjMatrix.size(); i++) {
-		for (size_t j = 0; j < adjMatrix.size(); j++) {
-			if (i != j && std::isfinite(adjMatrix[i][j])) {
-				arcs++;
-			}
-		}
-	}
-	return arcs;
+    return num_aristas;
 }
 
 void Graph::print() const
 {
+    std::cout << "Grafo con " << num_vertices
+        << " vertices y " <<  num_aristas
+        << " aristas" << endl;
 
-	for (auto it1 = adjMatrix.begin(); it1 != adjMatrix.end(); it1++) {
-		for (auto it2 = it1->begin(); it2 != it1->end(); it2++) {
-			std::cout << std::setprecision(3)
-						<< std::setfill(' ')
-						<< std::setw(4)
-						<< *it2 << " ";
-		}
-		std::cout << std::endl;
-	}
+    std::cout << "Lista de vértices:" << endl;
+    for (int it1 = 0; it1 < num_vertices; it1++) {
+        std::cout << vertices[it1] << " "; 
+    }
+    std::cout << endl;
+
+    std::cout << "Matriz de adyacencia:" << endl;
+    for (int it1 = 0; it1 < num_vertices; it1++) {
+        for (int it2 = 0; it2 < num_vertices; it2++) {
+            std::cout << std::setprecision(3)
+                        << std::setfill(' ')
+                        << std::setw(3)
+                        << adjMatrix[it1][it2] << " ";
+        }
+        std::cout << std::endl;
+    }
 
 }
