@@ -34,6 +34,17 @@ class Graph {
         virtual ~Graph();
 
         /**
+         * Indica si el grafo se encuentra vacío.
+         * @return Verdadero si no hay vértices en el grafo.
+         */
+        bool Vacio();
+
+        /**
+         * Elimina todos los vértices y aristas del grafo.
+         */
+        void Vaciar();
+
+        /**
          * Agrega un nuevo vertice al grafo.
          * @return El índice del vértice en la
          * matriz de adyacencia.

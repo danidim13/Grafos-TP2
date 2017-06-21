@@ -41,6 +41,18 @@ Graph::~Graph()
     delete[] vertices;
 }
 
+bool Graph::Vacio()
+{
+    return num_vertices == 0;
+}
+
+void Graph::Vaciar()
+{
+    num_vertices = 0;
+    num_aristas = 0;
+}
+
+
 Graph::vertex_t Graph::addVertex(string tag)
 {
     if (num_vertices == M) {
@@ -65,6 +77,38 @@ Graph::vertex_t Graph::addVertex(string tag)
 
 bool Graph::removeVertex(vertex_t v)
 {
+    if (v >= 0 && v < num_vertices) {
+
+        // Se cuentan los vértices que salen de v
+        // y que van hacia v
+        int aristas = 0;
+        for (int i = 0; i < num_vertices; i++) {
+            aristas = adjMatrix[v][i] ? aristas + 1 : aristas;
+            aristas = adjMatrix[i][v] ? aristas + 1 : aristas;
+        }
+        num_aristas -= aristas;
+
+        // Se corren todos los valores que vayan despues de
+        // v en la matriz de adyacencia
+        for (int i = 0; i < num_vertices; i++) {
+            for (int j = v; j < num_vertices-1; j++) {
+            adjMatrix[i][j] = adjMatrix[i][j+1];
+            }
+        }
+        for (int i = 0; i < num_vertices; i++) {
+            for (int j = v; j < num_vertices-1; j++) {
+            adjMatrix[j][i] = adjMatrix[j+1][i];
+            }
+        }
+
+        // Se corren todos los vértices que vayan despues
+        // de v en la lista de vértices
+        for (int j = v; j < num_vertices-1; j++) {
+            vertices[j] = vertices[j+1];
+        }
+        num_vertices--;
+        return true;
+    }
     return false;
 }
 
