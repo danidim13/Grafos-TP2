@@ -16,7 +16,11 @@ int main(int argc, char *argv[]) {
     G.addEdgeBidir(va, ve, 5);
     G.addEdgeBidir(vb, ve, 6);
     G.addEdgeBidir(vc, vd, -1);
+    G.addEdgeBidir(vd, ve, 21);
 
+    G.print();
+
+    G.EliminarVertice(ve);
     G.print();
 	return 0;
 }

@@ -49,14 +49,28 @@ class Graph {
          * @return El índice del vértice en la
          * matriz de adyacencia.
          */
-        vertex_t addVertex(string tag);
+        vertex_t addVertex(tag_t etiq);
 
         /**
          * Elimina un vertice del grafo.
          * @param v El vértice en la matriz de adyacencia.
          * @return True si la operación tiene éxito
          */
-        bool removeVertex(vertex_t v);
+        bool EliminarVertice(vertex_t v);
+
+        /**
+         * Modifica la etiqueta de un vértice del grafo.
+         * @param v El vértice a modificar.
+         * @param etiq La nueva etiqueta.
+         */
+        void ModificarEtiq(vertex_t v, tag_t etiq);
+
+        /**
+         * Obtiene la etiqueta de un vértice del grafo.
+         * @param v Un vértice del grafo.
+         * @return La etiqueta de \p v.
+         */
+        tag_t Etiqueta(vertex_t v);
 
         /**
          * Agrega una arista dirigida al grafo.

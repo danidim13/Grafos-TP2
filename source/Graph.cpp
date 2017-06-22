@@ -75,7 +75,7 @@ Graph::vertex_t Graph::addVertex(string tag)
     return num_vertices++;
 }
 
-bool Graph::removeVertex(vertex_t v)
+bool Graph::EliminarVertice(vertex_t v)
 {
     if (v >= 0 && v < num_vertices) {
 
@@ -112,6 +112,20 @@ bool Graph::removeVertex(vertex_t v)
     return false;
 }
 
+void Graph::ModificarEtiq(vertex_t v, tag_t etiq)
+{
+    if (v >= 0 && v < num_vertices)
+        vertices[v] = etiq;
+}
+
+Graph::tag_t Graph::Etiqueta(vertex_t v)
+{
+    if (v >= 0 && v < num_vertices)
+        return vertices[v];
+    else
+        return "";
+}
+
 bool Graph::addEdge(vertex_t source, vertex_t dest, weight_t weight)
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
@@ -121,6 +135,10 @@ bool Graph::addEdge(vertex_t source, vertex_t dest, weight_t weight)
         }
         if (!weight) {
             std::cerr << "Peso invalido" << endl;
+            return false;
+        }
+        if (adjMatrix[source][dest]) {
+            std::cerr << "Ya existe una arista" << endl;
             return false;
         }
         adjMatrix[source][dest] = weight;
@@ -139,6 +157,10 @@ bool Graph::addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight)
         }
         if (!weight) {
             std::cerr << "Peso invalido" << endl;
+            return false;
+        }
+        if (adjMatrix[source][dest] || adjMatrix[dest][source]) {
+            std::cerr << "Ya existe una arista" << endl;
             return false;
         }
         adjMatrix[source][dest] = weight;
