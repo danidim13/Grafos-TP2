@@ -130,15 +130,15 @@ bool Graph::addEdge(vertex_t source, vertex_t dest, weight_t weight)
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
         if (source == dest) {
-            std::cerr << "No se permiten lazos!" << std::endl;
+            cerr << "No se permiten lazos!" << endl;
             return false;
         }
         if (!weight) {
-            std::cerr << "Peso invalido" << endl;
+            cerr << "Peso invalido" << endl;
             return false;
         }
         if (adjMatrix[source][dest]) {
-            std::cerr << "Ya existe una arista" << endl;
+            cerr << "Ya existe una arista" << endl;
             return false;
         }
         adjMatrix[source][dest] = weight;
@@ -152,15 +152,15 @@ bool Graph::addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight)
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
         if (source == dest) {
-            std::cerr << "No se permiten lazos!" << std::endl;
+            cerr << "No se permiten lazos!" << endl;
             return false;
         }
         if (!weight) {
-            std::cerr << "Peso invalido" << endl;
+            cerr << "Peso invalido" << endl;
             return false;
         }
         if (adjMatrix[source][dest] || adjMatrix[dest][source]) {
-            std::cerr << "Ya existe una arista" << endl;
+            cerr << "Ya existe una arista" << endl;
             return false;
         }
         adjMatrix[source][dest] = weight;
@@ -179,7 +179,7 @@ bool Graph::EliminarArista(vertex_t source, vertex_t dest) {
             num_aristas -= 2;
             return true;
         } else {
-            std::cerr << "No existe la arista que se intentó borrar" << endl;
+            cerr << "No existe la arista que se intentó borrar" << endl;
             return false;
         }
     }
@@ -201,7 +201,7 @@ bool Graph::isEdge(vertex_t source, vertex_t dest) const
 bool Graph::ModificarPeso(vertex_t source, vertex_t dest, weight_t peso)
 {
     if (!peso) {
-        std::cerr << "Peso inválido" << endl;
+        cerr << "Peso inválido" << endl;
         return false;
     }
 
@@ -234,25 +234,39 @@ int Graph::size() const
 
 void Graph::print() const
 {
-    std::cout << "Grafo con " << num_vertices
+    cout << endl;
+    cout << "Grafo con " << num_vertices
         << " vertices y " <<  num_aristas
         << " aristas" << endl;
 
-    std::cout << "Lista de vértices:" << endl;
+    cout << "Lista de vértices:" << endl;
     for (int it1 = 0; it1 < num_vertices; it1++) {
-        std::cout << vertices[it1] << " "; 
+        cout << vertices[it1] << " "; 
     }
-    std::cout << endl;
+    cout << endl;
 
-    std::cout << "Matriz de adyacencia:" << endl;
+    cout << "Matriz de adyacencia:" << endl;
+
+    cout << "    ";
     for (int it1 = 0; it1 < num_vertices; it1++) {
+        cout << std::setfill(' ')
+                    << std::setw(3)
+                    << vertices[it1] << " ";
+    }
+    cout << endl;
+
+    for (int it1 = 0; it1 < num_vertices; it1++) {
+        cout << std::setfill(' ')
+                    << std::setw(3)
+                    << vertices[it1] << " ";
         for (int it2 = 0; it2 < num_vertices; it2++) {
-            std::cout << std::setprecision(3)
+            cout << std::setprecision(3)
                         << std::setfill(' ')
                         << std::setw(3)
-                        << adjMatrix[it1][it2] << " ";
+                        << adjMatrix[it1][it2]  << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
+    cout << endl;
 
 }
