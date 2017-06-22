@@ -198,6 +198,23 @@ bool Graph::isEdge(vertex_t source, vertex_t dest) const
     return false;
 }
 
+bool Graph::ModificarPeso(vertex_t source, vertex_t dest, weight_t peso)
+{
+    if (!peso) {
+        std::cerr << "Peso inválido" << endl;
+        return false;
+    }
+
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
+        if (adjMatrix[source][dest] && adjMatrix[dest][source]) {
+            adjMatrix[source][dest] = peso;
+            adjMatrix[dest][source] = peso;
+            return true;
+        }
+    }
+    return false;
+}
+
 Graph::weight_t Graph::getEdge(vertex_t source, vertex_t dest) const
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices)

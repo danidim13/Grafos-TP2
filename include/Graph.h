@@ -122,11 +122,19 @@ class Graph {
         bool isEdge(vertex_t source, vertex_t dest) const;
 
         /**
-         * Obtiene el peso de la arista que va
-         * desde source a dest.
+         * Cambia el peso de una arista.
+         * @param source Un vértice del grafo.
+         * @param dest Un vértice del grafo.
+         * @return True si la operación es exitosa
+         */
+        bool ModificarPeso(vertex_t source, vertex_t dest, weight_t peso);
+
+        /**
+         * Obtiene el peso de la arista que va desde source
+         * a dest.
          * @param source Fuente.
          * @param dest Destino.
-         * @Return Peso de la conexión.
+         * @Return Peso de la arista.
          */
         weight_t getEdge(vertex_t source, vertex_t dest) const;
 
