@@ -138,6 +138,43 @@ class Graph {
          */
         weight_t getEdge(vertex_t source, vertex_t dest) const;
 
+       /**
+        * Retorna el índice del primer vértice del grafo o -1
+        * si el grafo no tiene vértices.
+        * @return Índice del vértice en la matriz de adyacencia
+        */
+        vertex_t PrimerVertice() const;
+
+       /**
+        * Retorna el índice del vértice siguiente del grafo o -1
+        * si es el último vértice
+        * @param v Un vértice del grafo.
+        * @return Índice del vértice siguiente a \p v en la
+        * matriz de adyacencia
+        */
+        vertex_t SgteVertice(vertex_t v) const;
+
+       /**
+        * Retorna el índice del primer vértice adyacente del
+        * grafo o -1 si el vértice dado no tiene vértices
+        * adyacentes
+        * @param v_padre Un vértice del grafo.
+        * @return Índice del vértice en la matriz de adyacencia
+        */
+        vertex_t PrimerVertAd(vertex_t v_padre) const;
+
+       /**
+        * Retorna el índice del vértice adyacente siguiente del
+        * grafo o -1 si es el último vértice adyacente al primer
+        * vértice dado.
+        * @param v_padre Un vértice del grafo.
+        * @param v_hermano Un vértice del grafo que es vecino
+        * de \p v_padre.
+        * @return Índice del vértice vecino a \p v_padre
+        * siguiente a \p v_hermano en la matriz de adyacencia
+        */
+        vertex_t SgteVertAd(vertex_t v_padre, vertex_t v_hermano) const;
+
         /**
          * Retorna el orden del grafo.
          * @return El numero de vertices.
