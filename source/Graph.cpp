@@ -53,14 +53,14 @@ void Graph::Vaciar()
 }
 
 
-Graph::vertex_t Graph::addVertex(string tag)
+Graph::vertex_t Graph::AgregarVertice(tag_t etiq)
 {
     if (num_vertices == M) {
         return -1;
     }
 
     // Insertar el nuevo tag al final
-    vertices[num_vertices] = tag;
+    vertices[num_vertices] = etiq;
 
     // El nuevo vértice se inserta sin conexiones
     // (peso de 0)
@@ -148,7 +148,7 @@ bool Graph::addEdge(vertex_t source, vertex_t dest, weight_t weight)
     return false;
 }
 
-bool Graph::addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight)
+bool Graph::AgregarArista(vertex_t source, vertex_t dest, weight_t weight)
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
         if (source == dest) {
@@ -191,7 +191,7 @@ Graph::weight_t* Graph::getNeighbors(vertex_t v) const
     return adjMatrix[v];
 }
 
-bool Graph::isEdge(vertex_t source, vertex_t dest) const
+bool Graph::Adyacentes(vertex_t source, vertex_t dest) const
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices)
         return (bool)adjMatrix[source][dest];
@@ -215,16 +215,49 @@ bool Graph::ModificarPeso(vertex_t source, vertex_t dest, weight_t peso)
     return false;
 }
 
-Graph::weight_t Graph::getEdge(vertex_t source, vertex_t dest) const
+Graph::weight_t Graph::Peso(vertex_t source, vertex_t dest) const
 {
     if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices)
         return adjMatrix[source][dest];
     return 0;
 }
 
-int Graph::order() const
+//TODO
+Graph::vertex_t Graph::PrimerVertice() const
+{
+    return -1;
+}
+
+//TODO
+Graph::vertex_t Graph::SgteVertice(vertex_t v) const
+{
+    return -1;
+}
+
+//TODO
+Graph::vertex_t Graph::PrimerVertAd(vertex_t v_padre) const
+{
+    return -1;
+}
+
+//TODO
+Graph::vertex_t Graph::SgteVertAd(vertex_t v_padre, vertex_t v_hermano) const
+{
+    return -1;
+}
+
+int Graph::NumVertices() const
 {
     return num_vertices;
+}
+
+int Graph::NumVertAd(vertex_t v) const
+{
+    int cuenta = 0;
+    for (int i = 0; i < num_vertices; i++) {
+        cuenta = adjMatrix[v][i] ? cuenta + 1 : cuenta;
+    }
+    return cuenta;
 }
 
 int Graph::size() const

@@ -49,7 +49,7 @@ class Graph {
          * @return El índice del vértice en la
          * matriz de adyacencia.
          */
-        vertex_t addVertex(tag_t etiq);
+        vertex_t AgregarVertice(tag_t etiq);
 
         /**
          * Elimina un vertice del grafo.
@@ -89,7 +89,7 @@ class Graph {
          * @param weight Peso de la arista.
          * @return True si la operación tiene éxito.
          */
-        bool addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight);
+        bool AgregarArista(vertex_t source, vertex_t dest, weight_t weight);
 
         /**
          * Elimina una arista no dirigida del grafo.
@@ -119,7 +119,7 @@ class Graph {
          * @param dest Vértice destino.
          * @return True si existe.
          */
-        bool isEdge(vertex_t source, vertex_t dest) const;
+        bool Adyacentes(vertex_t source, vertex_t dest) const;
 
         /**
          * Cambia el peso de una arista.
@@ -136,7 +136,7 @@ class Graph {
          * @param dest Destino.
          * @Return Peso de la arista.
          */
-        weight_t getEdge(vertex_t source, vertex_t dest) const;
+        weight_t Peso(vertex_t source, vertex_t dest) const;
 
        /**
         * Retorna el índice del primer vértice del grafo o -1
@@ -179,7 +179,16 @@ class Graph {
          * Retorna el orden del grafo.
          * @return El numero de vertices.
          */
-        int order() const;
+        int NumVertices() const;
+
+        /**
+         * Retorna el numero de vértices adyacentes a
+         * un vértice.
+         * @param v Un vértice del grafo.
+         * @return El numero de vertices adyacentes a \p v.
+         */
+        int NumVertAd(vertex_t v) const;
+
 
         /**
          * Retorna el tamano del grafo.
