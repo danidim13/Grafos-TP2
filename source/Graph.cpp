@@ -171,6 +171,21 @@ bool Graph::addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight)
     return false;
 }
 
+bool Graph::EliminarArista(vertex_t source, vertex_t dest) {
+    if (source >= 0 && dest >= 0 && source < num_vertices && dest < num_vertices) {
+        if (adjMatrix[source][dest] && adjMatrix[dest][source]) {
+            adjMatrix[source][dest] = 0;
+            adjMatrix[dest][source] = 0;
+            num_aristas -= 2;
+            return true;
+        } else {
+            std::cerr << "No existe la arista que se intentó borrar" << endl;
+            return false;
+        }
+    }
+    return false;
+}
+
 Graph::weight_t* Graph::getNeighbors(vertex_t v) const
 {
     return adjMatrix[v];

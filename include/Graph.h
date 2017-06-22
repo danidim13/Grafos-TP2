@@ -92,6 +92,14 @@ class Graph {
         bool addEdgeBidir(vertex_t source, vertex_t dest, weight_t weight);
 
         /**
+         * Elimina una arista no dirigida del grafo.
+         * @param source Un vértice del grafo
+         * @param dest Un vértice del grafo
+         * @return True si la operación tiene éxito
+         */
+        bool EliminarArista(vertex_t source, vertex_t dest);
+
+        /**
          * Retorna las conexiones de un vertice
          * en forma de un vector de pesos a otros
          * nodos.
