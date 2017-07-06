@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     G.print();
 
-    cout << "Eliminando una arista" << endl;
+    /*cout << "Eliminando una arista" << endl;
     G.EliminarArista(vd, vc);
     G.EliminarArista(vd, vc);
     G.print();
@@ -28,5 +28,23 @@ int main(int argc, char *argv[]) {
     cout << "Eliminando un vértice" << endl;
     G.EliminarVertice(vb);
     G.print();
+    */
+
+    cout << "Recorriendo vértices" << endl;
+    Graph::vertex_t it;
+    it = G.PrimerVertice();
+    while (it != Graph::V_NULL) {
+        cout << "Vertice: " << it
+            << "\t Tag: " << G.Etiqueta(it) << endl;
+        cout << "\tVecinos: {" << endl;
+        Graph::vertex_t it2 = G.PrimerVertAd(it);
+        while (it2 != Graph::V_NULL) {
+        cout << "\t\tVertice: " << it2
+            << "\t Tag: " << G.Etiqueta(it2) << endl;
+        it2 = G.SgteVertAd(it,it2);
+        }
+        cout << "\t}" << endl;
+        it = G.SgteVertice(it);
+    }
 	return 0;
 }
