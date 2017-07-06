@@ -6,8 +6,8 @@
 #include "NodoArista.h"
 using namespace std;
 
-class NodoVertice;
-class NodoArista;
+//class NodoVertice;
+//class NodoArista;
 
 class ListaVertices
 {
@@ -20,14 +20,14 @@ public:
 
     ListaVertices()
     {
-       int num_vertices = 0;
+        int num_vertices = 0;
         primero = NULL;
         //ctor
     }
     void Vaciar()
     {
-      NodoVertice *it = primero;
-      NodoVertice *tmp;
+        NodoVertice *it = primero;
+        NodoVertice *tmp;
         while (it != NULL)
         {
             tmp = it;
@@ -54,7 +54,7 @@ public:
 
     virtual string Recuperar(int p)   //debe darse un índice válido
     {
-      NodoVertice *tmp = primero;
+        NodoVertice *tmp = primero;
         for(int i=1; i<p; i++)
         {
             tmp = tmp->siguiente;
@@ -65,7 +65,7 @@ public:
 
     void Insertar(int p, string etiq)
     {
-      NodoVertice *n = new NodoVertice;
+        NodoVertice *n = new NodoVertice;
         n->siguiente = NULL;
         n->etiqueta = etiq;
         n->posicion = p;
@@ -90,7 +90,7 @@ public:
             else
             {
                 //cout << "Buscando posicion" << endl;
-              NodoVertice *it = primero;
+                NodoVertice *it = primero;
                 for (int i = 2; i < p; i++)
                 {
                     it = it->siguiente;
@@ -107,7 +107,7 @@ public:
 
     void Borrar(int p)
     {
-      NodoVertice *tmp; // Nodo que se va a borrar
+        NodoVertice *tmp; // Nodo que se va a borrar
 
         if (p == 1)
         {
@@ -116,7 +116,7 @@ public:
         }
         else
         {
-          NodoVertice *it = primero;
+            NodoVertice *it = primero;
             for (int i = 2; i < p; i++)
             {
                 it = it->siguiente;
@@ -133,7 +133,7 @@ public:
 
     void ModificarElem(int p, string etiq)
     {
-      NodoVertice *n = primero;
+        NodoVertice *n = primero;
         for(int i=1; i<p; i++)
         {
             n = n->siguiente;
@@ -144,7 +144,7 @@ public:
     void Intercambiar(int p1, int p2)
     {
 
-      NodoVertice *it1, *it2;
+        NodoVertice *it1, *it2;
 
         it1 = primero;
         for (int i=1; i<p1; i++)
@@ -170,7 +170,7 @@ public:
 
     void Imprimir() //efectos de prueba
     {
-      NodoVertice *n = primero;
+        NodoVertice *n = primero;
         if(n==NULL)
         {
             cout<<"La lista esta vacia" << endl;
