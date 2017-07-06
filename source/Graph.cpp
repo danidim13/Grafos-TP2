@@ -1,4 +1,4 @@
-#include "../include/Graph.h"
+#include "Graph.h"
 #include <limits>
 #include <cmath>
 #include <iostream>
@@ -222,28 +222,40 @@ Graph::weight_t Graph::Peso(vertex_t source, vertex_t dest) const
     return 0;
 }
 
-//TODO
 Graph::vertex_t Graph::PrimerVertice() const
 {
-    return -1;
+    if (num_vertices > 0)
+        return 0;
+    else
+        return V_NULL;
 }
 
-//TODO
 Graph::vertex_t Graph::SgteVertice(vertex_t v) const
 {
-    return -1;
+    if (v < num_vertices-1)
+        return v+1;
+    else
+        return V_NULL;
 }
 
-//TODO
 Graph::vertex_t Graph::PrimerVertAd(vertex_t v_padre) const
 {
-    return -1;
+    for (int i = 0; i < num_vertices; i++) {
+        if (adjMatrix[v_padre][i]) {
+            return i;
+        }
+    }
+    return V_NULL;
 }
 
-//TODO
 Graph::vertex_t Graph::SgteVertAd(vertex_t v_padre, vertex_t v_hermano) const
 {
-    return -1;
+    for (int i = v_hermano + 1; i < num_vertices; i++) {
+        if (adjMatrix[v_padre][i]){
+            return i;
+        }
+    }
+    return V_NULL;
 }
 
 int Graph::NumVertices() const
