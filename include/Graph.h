@@ -13,6 +13,9 @@ class Graph {
         typedef int weight_t;
         typedef string tag_t;
 
+        /** Definicion de vertice nulo */
+        static const vertex_t V_NULL = -1; 
+
         /**
          * Constructor por defecto (Iniciar).
          * Inicia el grafo con cero vértices y un tamaño
