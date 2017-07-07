@@ -6,8 +6,13 @@ obj := $(addprefix obj/, $(notdir $(src:.cpp=.o)))
 obj/%.o: source/%.cpp include/%.h
 	$(CC) $(inc) ${MACROS} -c -o $@ $<
 
-all: $(obj) main.cpp 
-	$(CC) $(inc) $^
+main.out: $(obj) main.cpp 
+	$(CC) $(inc) $^ -o $@
+
+dic.out: $(obj) mainDicc.cpp
+	$(CC) $(inc) $^ -o $@
+
+all: main.out dic.out
 
 clean:
 	rm -f *.o *.out obj/*.o
