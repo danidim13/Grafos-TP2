@@ -79,6 +79,10 @@ bool Graph::EliminarVertice(vertex_t v)
 {
     if (v >= 0 && v < num_vertices) {
 
+        /**
+         * Esto no es necesario pues v debe estar aislado en
+         * primer lugar.
+
         // Se cuentan los vértices que salen de v
         // y que van hacia v
         int aristas = 0;
@@ -87,6 +91,8 @@ bool Graph::EliminarVertice(vertex_t v)
             aristas = adjMatrix[i][v] ? aristas + 1 : aristas;
         }
         num_aristas -= aristas;
+
+        */
 
         // Se corren todos los valores que vayan despues de
         // v en la matriz de adyacencia
