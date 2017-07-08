@@ -13,7 +13,7 @@ class Graph {
         typedef int weight_t;
         typedef string tag_t;
 
-        /** Definicion de vertice nulo */
+        /** Definicion de vértice nulo */
         static const vertex_t V_NULL = -1; 
 
         /**
@@ -24,10 +24,9 @@ class Graph {
         Graph();
 
         /**
-         * Constructor que recibe el numero máximo de vertices.
-         * Reserva la memoria necesaria e inicializa
-         * la matriz de adyacencia con todos los
-         * vertices desconectados, es decir Xij = inf.
+         * Constructor que recibe el numero máximo de vértices.
+         * Reserva la memoria necesaria para la matriz de
+         * adyacencia.
          */
         Graph(int nodes);
 
@@ -48,14 +47,15 @@ class Graph {
         void Vaciar();
 
         /**
-         * Agrega un nuevo vertice al grafo.
+         * Agrega un nuevo vértice al grafo.
          * @return El índice del vértice en la
          * matriz de adyacencia.
          */
         vertex_t AgregarVertice(tag_t etiq);
 
         /**
-         * Elimina un vertice del grafo.
+         * Elimina un vértice del grafo.
+         * El vértice debe estar aislado.
          * @param v El vértice en la matriz de adyacencia.
          * @return True si la operación tiene éxito
          */
@@ -103,7 +103,7 @@ class Graph {
         bool EliminarArista(vertex_t source, vertex_t dest);
 
         /**
-         * Retorna las conexiones de un vertice
+         * Retorna las conexiones de un vértice
          * en forma de un vector de pesos a otros
          * nodos.
          * @param v Índice del vértice en la matríz de
@@ -180,7 +180,7 @@ class Graph {
 
         /**
          * Retorna el orden del grafo.
-         * @return El numero de vertices.
+         * @return El numero de vértices.
          */
         int NumVertices() const;
 
@@ -188,21 +188,20 @@ class Graph {
          * Retorna el numero de vértices adyacentes a
          * un vértice.
          * @param v Un vértice del grafo.
-         * @return El numero de vertices adyacentes a \p v.
+         * @return El numero de vértices adyacentes a \p v.
          */
         int NumVertAd(vertex_t v) const;
 
 
         /**
-         * Retorna el tamano del grafo.
-         * @return El numero de aristas.
+         * Retorna el tamaño del grafo.
+         * @return El número de aristas.
          */
         int size() const;
 
         /**
-         * Imprime la representacion del grafo.
-         * En este caso, imprime la matriz de
-         * adyacencia.
+         * Imprime la representación del grafo.
+         * En este caso, imprime la matriz de adyacencia.
          */
         void print() const;
 
