@@ -1,5 +1,6 @@
 #include <iostream>
 #include "include/Graph.h"
+#include "include/Algoritmos.h"
 
 using namespace std;
 
@@ -30,6 +31,7 @@ int main(int argc, char *argv[]) {
     G.print();
     */
 
+    /*
     cout << "Recorriendo vértices" << endl;
     Graph::vertex_t it;
     it = G.PrimerVertice();
@@ -46,5 +48,12 @@ int main(int argc, char *argv[]) {
         cout << "\t}" << endl;
         it = G.SgteVertice(it);
     }
+    */
+
+    cout << endl;
+    cout << "Eliminando un vértice no aislado" << endl;
+    EliminarVert(G, ve);
+    G.print();
+
 	return 0;
 }
