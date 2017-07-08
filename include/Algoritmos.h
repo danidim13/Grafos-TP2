@@ -8,20 +8,20 @@
  * vértices del grafo. Esta información se muestra
  * en la pantalla en forma de una tabla.
  */
-void Floyd(Graph g);
+void Floyd(Graph &g);
 
 /**
  * Elimina un vértice no aislado del grafo.
  * @return Verdadero si la operación tiene éxito.
  */
-bool EliminarVert(Graph g);
+bool EliminarVert(Graph &g, Graph::vertex_t v);
 
 /**
  * Implementa el algoritmo de Colorea de Grafos.
  * Usa búsqueda exhaustiva pura para determinar el colero
  * óptimo.
  */
-void ColorGraph(Graph g);
+void ColorGraph(Graph &g);
 
 
 #endif
