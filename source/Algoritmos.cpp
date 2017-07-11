@@ -138,6 +138,44 @@ bool EliminarVert(Graph &g, Graph::vertex_t v)
     return true;
 }
 
+
+Graph copiar(Graph &g)
+{
+    Graph g2;
+    vertex_t vert = g1.PrimerVertice();
+    while(vert !=NULL)
+    {
+        g2.AgregarVertice(g1.Etiqueta(vert));
+        vert = g1.SgteVertice(vert);
+    }
+    vertex_t v1 = g1.PrimerVertice();
+    vertex_t vcopia;
+    while(v1 != NULL)
+    {
+        tag_t e = g2.PrimerVertice();
+        vcopia = g2.PrimerVertice();
+        while(vcopia != NULL)
+        {
+            if(g2.Etiq(vcopia)==e) break;
+            vcopia = g2.SgteVertice(vcopia);
+        }
+        vertex_t v2 = g1.PrimerVertAd();
+        vertex_t v2copia;
+        while(v2 != NULL)
+        {
+            tag_t tag2 = g1.Etiqueta(v2);
+            v2copia = g2.SgteVertice(v2copia);
+        }
+        weight_t peso = g1.Peso(v1,v2);
+        g2.AgregarArista(vcopia, v2copia,peso);
+        v2 = SgteVertAd; 
+        
+        
+    }
+    v1 = g1.SgteVertice(v1);
+    return g2;
+}
+
 void ColorearRec(const Graph &g, Graph::vertex_t v, int color, ColorStaticVars &vars)
 {
     //cout << "Coloreando " << v << " de color " << color << endl;
