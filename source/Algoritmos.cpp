@@ -43,7 +43,7 @@ void Floyd(Graph &g)
                 if (costos[i][j] > costos[i][k] + costos[k][j]) {
                     costos[i][j] = costos[i][k] + costos[k][j];
                     puntos[i][j] = k;
-                    cout << "DEBUG: setting i, j, k" << i << "," << j << "," << k << endl;
+                    //cout << "DEBUG: setting i, j, k" << i << "," << j << "," << k << endl;
                 }
             }
         }
@@ -178,12 +178,12 @@ void ColorearRec(const Graph &g, Graph::vertex_t v, int color, ColorStaticVars &
 
         // Se actualiza la mejor solucion
         vars.MejorNumColor = vars.ColoresUsados.size();
-        cout << "Se encontro una mejor solucion: " << vars.MejorNumColor << endl;
+        //cout << "Se encontro una mejor solucion: " << vars.MejorNumColor << endl;
         for (int i = 0; i < g.NumVertices(); i++) {
             vars.MejorColorVert[i] = vars.ColorVertices[i];
-            cout << vars.ColorVertices[i] << " ";
+            //cout << vars.ColorVertices[i] << " ";
         }
-        cout << endl;
+        //cout << endl;
 
         vars.ColorVertices[v] = -1;
         vars.VerticesColoreados.erase(v);

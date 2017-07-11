@@ -15,7 +15,7 @@ test.out: $(obj) test.cpp
 dic.out: $(obj) mainDicc.cpp
 	$(CC) $(inc) $^ -o $@
 
-all: main.out dic.out
+all: main.out dic.out test.out
 
 clean:
 	rm -f *.o *.out obj/*.o
