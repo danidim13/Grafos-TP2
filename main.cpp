@@ -71,7 +71,9 @@ int main(int argc, char *argv[]) {
     G.print();
     */
 
-    Floyd(G);
+    //Floyd(G);
+    ColorGraph(G);
+
 
 	return 0;
 }

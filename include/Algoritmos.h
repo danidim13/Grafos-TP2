@@ -2,6 +2,7 @@
 #define __ALGORITMOS_H__
 
 #include "Graph.h"
+#include <set>
 
 /**
  * Encuentra el camino más corto entre cada par de
@@ -15,6 +16,20 @@ void Floyd(Graph &g);
  * @return Verdadero si la operación tiene éxito.
  */
 bool EliminarVert(Graph &g, Graph::vertex_t v);
+
+struct ColorStaticVars {
+    // Los colores que se han usado en la solucion actual
+    set<int> ColoresUsados;
+    // Los vertices que se han coloreado en la solucion actual
+    set<Graph::vertex_t> VerticesColoreados;
+    // El color de cada vertice en la solucion actual
+    int *ColorVertices;
+
+    int *MejorColorVert;
+    int MejorNumColor;
+};
+
+void ColorearRec(const Graph &g, Graph::vertex_t v, int color, ColorStaticVars &vars);
 
 /**
  * Implementa el algoritmo de Colorea de Grafos.
