@@ -9,10 +9,13 @@ obj/%.o: source/%.cpp include/%.h
 main.out: $(obj) main.cpp 
 	$(CC) $(inc) $^ -o $@
 
+test.out: $(obj) test.cpp 
+	$(CC) $(inc) $^ -o $@
+
 dic.out: $(obj) mainDicc.cpp
 	$(CC) $(inc) $^ -o $@
 
-all: main.out dic.out
+all: main.out dic.out test.out
 
 clean:
 	rm -f *.o *.out obj/*.o

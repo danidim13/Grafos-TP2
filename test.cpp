@@ -71,7 +71,20 @@ int main(int argc, char *argv[]) {
     G.print();
     */
 
+    cout << "---------------------------" << endl;
+    cout << "Probando algoritmo de floyd" << endl;
     Floyd(G);
+    cout << endl;
+
+    cout << "---------------------------" << endl;
+    cout << "Probando algoritmo de coloreo" << endl;
+    ColorGraph(G);
+
+    cout << "---------------------------" << endl;
+    cout << "Eliminando un vértice no aislado" << endl;
+    cout << "Eliminando " << G.Etiqueta(ve);
+    EliminarVert(G, ve);
+    G.print();
 
 	return 0;
 }
