@@ -13,11 +13,25 @@ int main(int argc, char *argv[]) {
     Graph::vertex_t vc = G.AgregarVertice("C");
     Graph::vertex_t vd = G.AgregarVertice("D");
     Graph::vertex_t ve = G.AgregarVertice("E");
+    Graph::vertex_t vf = G.AgregarVertice("F");
 
-    G.AgregarArista(va, ve, 5);
-    G.AgregarArista(vb, ve, 6);
-    G.AgregarArista(vc, vd, -1);
-    G.AgregarArista(vd, ve, 21);
+    G.AgregarArista(va, vb, 2);
+    G.AgregarArista(va, ve, 3);
+    G.AgregarArista(va, vf, 2);
+
+    G.AgregarArista(vb, vc, 3);
+    G.AgregarArista(vb, vd, 2);
+    G.AgregarArista(vb, vf, 8);
+
+    G.AgregarArista(vc, vd, 5);
+
+    G.AgregarArista(vd, vf, 30);
+
+    G.AgregarArista(ve, vb, 1);
+    G.AgregarArista(ve, vc, 10);
+    G.AgregarArista(ve, vd, 20);
+
+    G.AgregarArista(vf, ve, 8);
 
     G.print();
 
@@ -50,10 +64,14 @@ int main(int argc, char *argv[]) {
     }
     */
 
+    /*
     cout << endl;
     cout << "Eliminando un vértice no aislado" << endl;
     EliminarVert(G, ve);
     G.print();
+    */
+
+    Floyd(G);
 
 	return 0;
 }
