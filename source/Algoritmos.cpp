@@ -2,33 +2,52 @@
 #include <iostream>
 #include <limits>
 #include <iomanip>
+#include <vector>
+
+void CaminoFloyd(Graph::vertex_t i, Graph::vertex_t j, std::vector<std::vector<Graph::vertex_t>> &puntos, Graph &g)
+{
+    Graph::vertex_t k = puntos[i][j];
+
+    if (k < 0) {
+        return;
+    } else {
+        CaminoFloyd(i, k, puntos, g);
+        cout << g.Etiqueta(k) << " ";
+        CaminoFloyd(k, j, puntos, g);
+    }
+}
 
 void Floyd(Graph &g)
 {
     int num_v = g.NumVertices();
 
-    double caminos[num_v][num_v];
+    double costos[num_v][num_v];
+    std::vector<std::vector<Graph::vertex_t>> puntos;
+    puntos.resize( num_v, vector<Graph::vertex_t>( num_v, -1 ) );
 
     for (int i = 0; i < num_v; i++) {
         for (int j = 0; j < num_v; j++) {
             if (i == j)
-                caminos[i][j] = 0;
+                costos[i][j] = 0;
             else
-                caminos[i][j] = g.Adyacentes(i, j) ? (double)g.Peso(i, j) : std::numeric_limits<double>::infinity();
+                costos[i][j] = g.Adyacentes(i, j) ? (double)g.Peso(i, j) : std::numeric_limits<double>::infinity();
         }
     }
 
     for (int k = 0; k < num_v; k++) {
         for (int i = 0; i < num_v; i++) {
             for (int j = 0; j < num_v; j++) {
-                if (caminos[i][j] > caminos[i][k] + caminos[k][j])
-                    caminos[i][j] = caminos[i][k] + caminos[k][j];
+                if (costos[i][j] > costos[i][k] + costos[k][j]) {
+                    costos[i][j] = costos[i][k] + costos[k][j];
+                    puntos[i][j] = k;
+                    std::cout << "DEBUG: setting i, j, k" << i << "," << j << "," << k << std::endl;
+                }
             }
         }
     }
 
     std::cout << std::endl;
-    std::cout << "Matriz de caminos más cortos (desde\\hacia):" << endl;
+    std::cout << "Matriz de costos más cortos (desde\\hacia):" << endl;
 
     cout << "    ";
     for (int it1 = 0; it1 < num_v; it1++) {
@@ -46,12 +65,49 @@ void Floyd(Graph &g)
             cout << std::setprecision(3)
                         << std::setfill(' ')
                         << std::setw(3)
-                        << caminos[it1][it2]  << " ";
+                        << costos[it1][it2]  << " ";
+        }
+        cout << endl;
+    }
+
+    std::cout << std::endl;
+    std::cout << "Matriz de puntos medios (desde\\hacia):" << endl;
+
+    cout << "    ";
+    for (int it1 = 0; it1 < num_v; it1++) {
+        cout << std::setfill(' ')
+                    << std::setw(3)
+                    << g.Etiqueta(it1) << " ";
+    }
+    cout << endl;
+
+    for (int it1 = 0; it1 < num_v; it1++) {
+        cout << std::setfill(' ')
+                    << std::setw(3)
+                    << g.Etiqueta(it1) << " ";
+        for (int it2 = 0; it2 < num_v; it2++) {
+            cout << std::setprecision(3)
+                        << std::setfill(' ')
+                        << std::setw(3)
+                        << puntos[it1][it2]  << " ";
         }
         cout << endl;
     }
     cout << endl;
+
+    cout << "Caminos:" << endl;
+    for (int i = 0; i < num_v; i++) {
+        for (int j = 0; j < i; j++) {
+            cout << g.Etiqueta(i) << " ";
+            CaminoFloyd(i,j,puntos,g);
+            cout << g.Etiqueta(j) << " ";
+            cout << endl;
+        }
+    }
+
+    cout << endl;
 }
+
 
 bool EliminarVert(Graph &g, Graph::vertex_t v)
 {
